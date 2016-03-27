@@ -13,11 +13,44 @@ NOTES:
 
 #include <stdio.h>
 
-struct node {
+typedef	struct node {
 	int num;
-	struct node *next;
+	node *next;
 };
 
-struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
-	return NULL;
+node * merge2LinkedLists(node *head1, node *head2) {
+	
+	if (head1 == '\0'&&head2 == '\0')
+		return NULL;
+	if (head1 == '\0')
+		return head2;
+	node *curr1, *curr2, *curr, *t;
+	curr1 = head1;
+	curr2 = head2;
+	t = head2;
+	while (curr1 != '\0'&&curr2 != '\0')
+	{
+		while (curr1->num<curr2->num&&curr1->next != '\0')
+		{
+			curr = curr1;
+			curr1 = curr1->next;
+		}
+		if (curr1->num >= curr2->num)
+		{
+			if (curr1 == head1)
+				head1 = curr2;
+			else
+				curr->next = curr2;
+			t = curr2->next;
+			curr2->next = curr1;
+			curr = curr2;
+		}
+		else if (curr1->next == '\0')
+		{
+			curr1->next = curr2;
+			return head1;
+		}
+		curr2 = t;
+	}
+	return head1;
 }
